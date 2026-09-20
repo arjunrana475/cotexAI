@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Environment variables - anywhere in the project
+.env
+.env.*
+!.env.example
+
+# Firebase service account/private keys
+serviceAccountKey.json
+*-service-account.json
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
