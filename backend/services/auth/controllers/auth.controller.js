@@ -1,22 +1,18 @@
 import User from "../model/user.model.js";
 import { getAuth } from "firebase-admin/auth";
 import { app } from "../config/firebase.js";
+import redis from "../../../shared/redis/redis.js";
 
 export const login = async (req, res) => {
   try {
     const { token } = req.body;
 
-    console.log("1. Token received:", !!token);
-
     const decoded = await getAuth(app).verifyIdToken(token);
-
-    console.log("2. Firebase UID:", decoded.uid);
 
     let user = await User.findOne({
       firebaseUid: decoded.uid,
     });
 
-    console.log("3. Existing user:", user);
 
     if (!user) {
       user = await User.create({
@@ -30,6 +26,17 @@ export const login = async (req, res) => {
     }
 
     const sessionId = crypto.randomUUID();
+
+    await redis.set(
+      `session-${sessionId}`,
+      JSON.stringify({
+        userId: user._id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+      }),
+      "EX",7*24*60*60
+    );
 
     res.cookie("session", sessionId, {
       httpOnly: true,
@@ -46,6 +53,33 @@ export const login = async (req, res) => {
 
     return res.status(500).json({
       message: "Login controller error",
+      error: error.message,
+    });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    const sessionId = req.cookies?.session;
+
+    if (sessionId) {
+      await redis.del(`session-${sessionId}`);
+    }
+
+    res.clearCookie("session", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict",
+    });
+
+    return res.status(200).json({
+      message: "Logout successful",
+    });
+  } catch (error) {
+    console.error("LOGOUT ERROR:", error);
+
+    return res.status(500).json({
+      message: "Logout failed",
       error: error.message,
     });
   }
