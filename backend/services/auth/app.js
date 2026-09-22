@@ -14,10 +14,10 @@ app.use(cookieParser());
 app.use('/', router);
 
 app.get('/', (req, res) => {
-    res.json({message:"Hello"})
+    res.json({message:"Hello auth"})
 })
 
 app.listen(port, () => {
-    console.log("auth started at port " + port);
+    console.log("auth server started at port " + port);
     connectDB();
 })
