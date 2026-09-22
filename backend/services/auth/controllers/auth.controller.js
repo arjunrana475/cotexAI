@@ -22,7 +22,7 @@ export const login = async (req, res) => {
         avatar: decoded.picture,
       });
 
-      console.log("4. USER CREATED:", user);
+      console.log("4. USER CREATED : ", user);
     }
 
     const sessionId = crypto.randomUUID();
@@ -49,7 +49,7 @@ export const login = async (req, res) => {
 
     return res.status(200).json(user);
   } catch (error) {
-    console.error("LOGIN CONTROLLER ERROR:", error);
+    console.error("LOGIN CONTROLLER ERROR : ", error);
 
     return res.status(500).json({
       message: "Login controller error",
