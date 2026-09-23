@@ -1,3 +1,4 @@
+import "dotenv/config";
 import Redis from "ioredis";
 
 console.log("Redis file loaded");
@@ -9,6 +10,8 @@ redis.on("connect", () => {
   console.log("Redis connected");
 });
 
-
+redis.on("error", (error) => {
+  console.error("Redis error:", error.message);
+});
 
 export default redis;

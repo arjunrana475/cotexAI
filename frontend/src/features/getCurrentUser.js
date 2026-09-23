@@ -1,14 +1,13 @@
-import api from '../../utils/axios.js'
+import api from "../../utils/axios.js";
 
 const getCurrentUser = async () => {
-    try { 
-        const { data } = await api.get('/api/me');
+    try {
+        const { data } = await api.get("/api/auth/me");
         return data;
-    }
-    catch (e) {
-        console.log(e);
+    } catch (e) {
+        console.log(e.response?.data || e.message);
         return null;
     }
-}
+};
 
 export default getCurrentUser;
