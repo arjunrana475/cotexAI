@@ -24,7 +24,7 @@ app.use(
 app.use(cookieParser());
 
 app.use("/api/auth", proxy(process.env.AUTH_SERVICE_URL));
-app.use("/api/chat", ProxyWithHeader(process.env.CHAT_SERVICE_URL));
+app.use("/api/chat", protect,ProxyWithHeader(process.env.CHAT_SERVICE_URL));
 
 app.get("/api/me", protect, getCurrentUser);
 
