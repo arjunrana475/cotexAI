@@ -5,10 +5,10 @@ const conversationSchema = new mongoose.Schema(
     title: {
           type: String,
           default: "New Chat",
-        },
-        userId: {
-          type:String
-      }
+    },
+    userId: {
+      type:String
+    }
   },
   {
     timestamps: true,
