@@ -1,7 +1,8 @@
-import dotenv from 'dotenv'
-import connectDB from './config/db.js';
 import cookieParser from "cookie-parser";
+import dotenv from 'dotenv';
+import connectDB from './config/db.js';
 import router from './routes/chat.route.js';
+import express from 'express'
 dotenv.config();
 
 const port = process.env.PORT;
