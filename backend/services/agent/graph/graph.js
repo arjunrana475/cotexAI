@@ -65,4 +65,4 @@ workflow.addEdge("vision","__end__")
 workflow.addEdge("pdfRag","__end__")
 workflow.addEdge("imageAnalyzer","__end__")
 
-export const graph=workflow.compile()
+export const graph = workflow.compile();
