@@ -100,6 +100,7 @@ function ChatInput() {
     dispatch(addMessage({ role: "user", content: value.trim() }))
     setValue("")
     const data = await sendMessage(formData)
+    console.log("🔥 AGENT RESPONSE:", data);
     dispatch(setIsLoading(false))
     setSelectedFile(null)
     dispatch(setArtifacts(data.artifacts || []))
