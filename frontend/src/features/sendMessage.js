@@ -1,5 +1,5 @@
 
-import api from '../../utils/axios'
+import api from '../utils/axios.js'
 
 async function sendMessage(payload) {
  try {
